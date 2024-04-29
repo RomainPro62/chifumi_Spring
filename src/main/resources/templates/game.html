@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+
+<h1>Rock Paper Scissors</h1>
+
+<div id="game-results">
+    <p>User Score: <span th:text="${userScore}"></span></p>
+    <p>Computer Score: <span th:text="${computerScore}"></span></p>
+    <p>Rounds Played: <span th:text="${roundsPlayed}"></span></p>
+</div>
+
+<form action="/play" method="post">
+    <button type="submit" name="userChoice" value="rock">Rock</button>
+    <button type="submit" name="userChoice" value="paper">Paper</button>
+    <button type="submit" name="userChoice" value="scissors">Scissors</button>
+</form>
+
+<div th:if="${gameResult}">
+    <p th:text="${gameResult}"></p>
+</div>
+
+</body>
+</html>
