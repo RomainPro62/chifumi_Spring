@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Results</title>
+</head>
+<body>
+
+<h1>Game Results</h1>
+
+<table>
+    <tr>
+        <th>Round</th>
+        <th>User Choice</th>
+        <th>Computer Choice</th>
+        <th>Result</th>
+    </tr>
+    <tr th:each="result, iterStat : ${gameResults}">
+        <td th:text="${iterStat.count}"></td>
+        <td th:text="${result.userChoice}"></td>
+        <td th:text="${result.computerChoice}"></td>
+        <td th:text="${result.result}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
