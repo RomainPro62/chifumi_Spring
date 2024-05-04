@@ -1,11 +1,14 @@
 package com.chifumi.tp.controller;
 
 import com.chifumi.tp.service.GameService;
+import com.chifumi.tp.service.UserService;
 import com.chifumi.tp.service.entity.GameRoundResult;
+import com.chifumi.tp.service.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -15,10 +18,12 @@ import java.util.List;
 public class GameController {
 
     private final GameService gameService;
+    private final UserService userService;
 
     @Autowired
-    public GameController(GameService gameService) {
+    public GameController(GameService gameService, UserService userService) {
         this.gameService = gameService;
+        this.userService = userService;
     }
 
     @PostMapping("/play")
@@ -50,4 +55,3 @@ public class GameController {
         return "game";
     }
 }
-

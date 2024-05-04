@@ -76,6 +76,7 @@ public class Game {
         score.put("roundsPlayed", roundsPlayed);
         return score;
     }
+
     public String getComputerChoice(List<String> previousUserChoices) {
         // Séquences de coups du joueur
         String sequence = String.join("", previousUserChoices);
