@@ -54,4 +54,29 @@ public class UserController {
         userService.registerUser(user);
         return "redirect:/login";
     }
+
+    @GetMapping("/profile")
+    public String showProfileForm(@SessionAttribute(name = "loggedInUserId", required = false) Long loggedInUserId, Model model) {
+        if (loggedInUserId != null) {
+            User user = userService.getUserById(loggedInUserId);
+            model.addAttribute("user", user);
+            return "profile";
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+    @PostMapping("/updateProfile")
+    public String updateProfile(@SessionAttribute(name = "loggedInUserId") Long loggedInUserId,
+                                @RequestParam("username") String username,
+                                @RequestParam("password") String password) {
+        User user = userService.getUserById(loggedInUserId);
+        user.updateProfile(username, password);
+        userService.updateUser(user);
+        return "redirect:/play?error";
+    }
+    @GetMapping("/updateProfile")
+    public String returnProfile() {
+        return "redirect:/profile";
+    }
 }

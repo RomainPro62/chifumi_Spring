@@ -1,11 +1,9 @@
-package com.chifumi.tp.service;
+package com.chifumi.tp.service;// UserService.java
 
 import com.chifumi.tp.service.entity.User;
 import com.chifumi.tp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -21,8 +19,8 @@ public class UserService {
     }
 
     public boolean authenticateUser(String username, String password) {
-        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByUsername(username));
-        return optionalUser.isPresent() && optionalUser.get().getPassword().equals(password);
+        User user = userRepository.findByUsername(username);
+        return user != null && user.getPassword().equals(password);
     }
 
     public Long getUserIdByUsername(String username) {
@@ -32,5 +30,9 @@ public class UserService {
 
     public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
+    }
+
+    public void updateUser(User user) {
+        userRepository.save(user);
     }
 }
