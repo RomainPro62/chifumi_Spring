@@ -7,10 +7,7 @@ import com.chifumi.tp.service.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +21,17 @@ public class GameController {
     public GameController(GameService gameService, UserService userService) {
         this.gameService = gameService;
         this.userService = userService;
+    }
+    @GetMapping("/play")
+    public String showGamePage(@SessionAttribute(name = "loggedInUserId", required = false) Long loggedInUserId, Model model) {
+        if (loggedInUserId == null) {
+            return "redirect:/login"; // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+        }
+        // Utiliser l'identifiant de l'utilisateur pour obtenir ses informations
+        User user = userService.getUserById(loggedInUserId);
+        // Ajouter les informations de l'utilisateur au modèle
+        model.addAttribute("user", user);
+        return "game";
     }
 
     @PostMapping("/play")
@@ -43,15 +51,13 @@ public class GameController {
 
         return "game";
     }
-
     @GetMapping("/game-results")
-    public String showGameResults(Model model) {
+    public String showGameResultsPage(@SessionAttribute(name = "loggedInUserId", required = false) Long loggedInUserId, Model model) {
+        if (loggedInUserId == null) {
+            return "redirect:/login"; // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+        }
         List<GameRoundResult> gameResults = gameService.getGameResults();
         model.addAttribute("gameResults", gameResults);
         return "game-results";
-    }
-    @GetMapping("/play")
-    public String showGamePage() {
-        return "game";
     }
 }

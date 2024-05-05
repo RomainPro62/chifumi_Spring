@@ -24,5 +24,13 @@ public class UserService {
         Optional<User> optionalUser = Optional.ofNullable(userRepository.findByUsername(username));
         return optionalUser.isPresent() && optionalUser.get().getPassword().equals(password);
     }
-}
 
+    public Long getUserIdByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        return (user != null) ? user.getId() : null;
+    }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+}
