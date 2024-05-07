@@ -22,6 +22,7 @@ public class GameController {
         this.gameService = gameService;
         this.userService = userService;
     }
+
     @GetMapping("/play")
     public String showGamePage(@SessionAttribute(name = "loggedInUserId", required = false) Long loggedInUserId, Model model) {
         if (loggedInUserId == null) {
@@ -43,19 +44,27 @@ public class GameController {
         model.addAttribute("roundsPlayed", result.getRoundsPlayed());
         model.addAttribute("gameResult", result.getResult());
 
-        if (result.getUserScore() == 3 || result.getComputerScore() == 3) {
-            String gameResult = (result.getUserScore() == 3) ? "You win!" : "Computer wins!";
-            model.addAttribute("finalResult", gameResult);
-            return "game";
+        String imageSource = null;
+
+        // Déterminer le chemin de l'image en fonction du résultat du jeu
+        if (result.getUserScore() == 3) {
+            imageSource = "images/win.png";
+        } else if (result.getComputerScore() == 3) {
+            imageSource = "images/lose.png";
         }
+
+        // Ajouter le chemin de l'image au modèle
+        model.addAttribute("imageSource", imageSource);
 
         return "game";
     }
+
     @GetMapping("/game-results")
     public String showGameResultsPage(@SessionAttribute(name = "loggedInUserId", required = false) Long loggedInUserId, Model model) {
         if (loggedInUserId == null) {
             return "redirect:/login"; // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
         }
+        // Récupérer les résultats du jeu
         List<GameRoundResult> gameResults = gameService.getGameResults();
         model.addAttribute("gameResults", gameResults);
         return "game-results";

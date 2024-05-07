@@ -1,0 +1,164 @@
+.navbar {
+    background-color: #333;
+    overflow: hidden;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.navbar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% + 20px);
+    height: 3px; /* Hauteur de la ligne */
+    background: linear-gradient(to right, #ff5733, #ffbf00, #33ff57, #3380ff); /* Dégradé de couleurs */
+    animation: moveLine 5s linear infinite;
+}
+
+@keyframes moveLine {
+    0% {
+        transform: translateX(-10px);
+    }
+    25% {
+        transform: translateX(calc(100% + 10px)) translateY(0);
+    }
+    50% {
+        transform: translateY(100%);
+    }
+    75% {
+        transform: translateX(-10px) translateY(100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.navbar-nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-item {
+    margin-right: 10px;
+}
+
+.nav-link {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    transition: background-color 0.3s, color 0.3s;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: purple;
+    transition: width 2.5s;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-item-logout {
+    margin-left: auto;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f5f5f5;
+    overflow: hidden;
+    background-image: url('images/background.png');
+    animation: moveBackground 20s linear infinite alternate;
+}
+
+@keyframes moveBackground {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 100% 100%;
+    }
+}
+
+h1 {
+    color: #333;
+}
+
+#game-results {
+    margin-bottom: 20px;
+    font-size: 20px;
+    animation: slideIn 0.5s ease;
+}
+
+#game-results p {
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+#game-results p:hover {
+    color: #FF5733;
+}
+
+button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    animation: fadeIn 0.5s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+button:active {
+    background-color: #0056b3;
+    transform: scale(0.95);
+}
+
+button img {
+    width: 50px;
+    height: 50px;
+}
+
+.animated {
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

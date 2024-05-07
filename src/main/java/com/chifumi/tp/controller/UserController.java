@@ -7,6 +7,7 @@ import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @SessionAttributes("loggedInUserId")
@@ -73,10 +74,16 @@ public class UserController {
         User user = userService.getUserById(loggedInUserId);
         user.updateProfile(username, password);
         userService.updateUser(user);
-        return "redirect:/play?error";
+        return "redirect:/play";
     }
     @GetMapping("/updateProfile")
     public String returnProfile() {
         return "redirect:/profile";
+    }
+
+    @GetMapping("/logout")
+    public String logoutUser(SessionStatus sessionStatus) {
+        sessionStatus.setComplete(); // Effacer tous les attributs de session
+        return "redirect:/login"; // Rediriger vers la page de connexion après la déconnexion
     }
 }

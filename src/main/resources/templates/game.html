@@ -3,29 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" type="text/css" href="game.css">
 </head>
 <body>
+<nav class="navbar">
+    <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="/play">Jouer</a></li>
+        <li class="nav-item"><a class="nav-link" href="/game-results">Résultats</a></li>
+        <li class="nav-item"><a class="nav-link" href="/profile">Profil</a></li>
+        <li class="nav-item nav-item-logout"><a class="nav-link" href="/logout">Déconnexion</a></li>
+    </ul>
+</nav>
 
 <h1>Rock Paper Scissors</h1>
 
-<div id="game-results">
+<div id="game-results" class="animated" th:class="${animationClass}">
     <p>User Score: <span th:text="${userScore}"></span></p>
     <p>Computer Score: <span th:text="${computerScore}"></span></p>
     <p>Rounds Played: <span th:text="${roundsPlayed}"></span></p>
 </div>
 
 <form action="/play" method="post">
-    <button type="submit" name="userChoice" value="rock">Rock</button>
-    <button type="submit" name="userChoice" value="paper">Paper</button>
-    <button type="submit" name="userChoice" value="scissors">Scissors</button>
+    <button type="submit" name="userChoice" value="rock" class="animated">
+        <img src="images/fist.png" alt="Rock Icon">
+    </button>
+    <button type="submit" name="userChoice" value="paper" class="animated">
+        <img src="images/hand-paper.png" alt="Paper Icon">
+    </button>
+    <button type="submit" name="userChoice" value="scissors" class="animated">
+        <img src="images/scissors.png" alt="Scissors Icon">
+    </button>
 </form>
 
-<div th:if="${gameResult}">
+<div th:if="${gameResult}" class="animated">
     <p th:text="${gameResult}"></p>
 </div>
 
-<div th:if="${finalResult}">
+<div th:if="${finalResult}" class="animated">
     <h2 th:text="${finalResult}"></h2>
+</div>
+
+<div th:if="${imageSource != null}" class="animated">
+    <img th:src="${imageSource}" alt="Result Image">
 </div>
 </body>
 </html>
