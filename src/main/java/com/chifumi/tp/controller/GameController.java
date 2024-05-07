@@ -53,7 +53,6 @@ public class GameController {
             imageSource = "images/lose.png";
         }
 
-        // Ajouter le chemin de l'image au modèle
         model.addAttribute("imageSource", imageSource);
 
         return "game";
@@ -62,7 +61,7 @@ public class GameController {
     @GetMapping("/game-results")
     public String showGameResultsPage(@SessionAttribute(name = "loggedInUserId", required = false) Long loggedInUserId, Model model) {
         if (loggedInUserId == null) {
-            return "redirect:/login"; // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+            return "redirect:/login";
         }
         // Récupérer les résultats du jeu
         List<GameRoundResult> gameResults = gameService.getGameResults();

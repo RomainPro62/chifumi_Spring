@@ -22,7 +22,7 @@ public class Game {
         choices.put("paper", "rock");
         choices.put("scissors", "paper");
     }
-
+    // L'ordi choisit un choix entre pierre, feuille ou ciseaux
     public GameRoundResult playRound(String userChoice) {
         String computerChoice = getRandomChoice();
         String result = calculateRoundResult(userChoice, computerChoice);
@@ -36,16 +36,15 @@ public class Game {
             roundsPlayed = 0;
             return new GameRoundResult(userChoice, computerChoice, gameResult, userScore, computerScore, roundsPlayed);
         }
-
         return new GameRoundResult(userChoice, computerChoice, result, userScore, computerScore, roundsPlayed);
     }
-
+    // Récupère l'option choisi
     private String getRandomChoice() {
         String[] options = {"rock", "paper", "scissors"};
         Random random = new Random();
         return options[random.nextInt(options.length)];
     }
-
+    // Vérifie si le joueur gagne la manche ou l'ordi
     private String calculateRoundResult(String userChoice, String computerChoice) {
         if (userChoice.equals(computerChoice))
             return "draw";
@@ -76,7 +75,7 @@ public class Game {
         score.put("roundsPlayed", roundsPlayed);
         return score;
     }
-
+    // Amélioration de l'IA
     public String getComputerChoice(List<String> previousUserChoices) {
         // Séquences de coups du joueur
         String sequence = String.join("", previousUserChoices);

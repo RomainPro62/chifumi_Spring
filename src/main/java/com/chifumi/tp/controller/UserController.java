@@ -3,7 +3,6 @@ package com.chifumi.tp.controller;
 import com.chifumi.tp.service.entity.User;
 import com.chifumi.tp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,16 +33,16 @@ public class UserController {
         if (userService.authenticateUser(user.getUsername(), user.getPassword())) {
             // Authentification réussie, stocker l'identifiant de l'utilisateur en session
             model.addAttribute("loggedInUserId", userService.getUserIdByUsername(user.getUsername()));
-            return "redirect:/play"; // Rediriger vers la page de jeu après la connexion réussie
+            return "redirect:/play";
         } else {
-            return "redirect:/login?error"; // Rediriger vers la page de connexion avec un message d'erreur en cas d'échec de connexion
+            return "redirect:/login?error";
         }
     }
 
     @GetMapping("/register")
     public String showRegistrationForm(@SessionAttribute(name = "loggedInUserId", required = false) Long loggedInUserId, Model model) {
         if (loggedInUserId != null) {
-            return "redirect:/play"; // Rediriger vers une autre page si l'utilisateur est déjà connecté
+            return "redirect:/play";
         } else {
         model.addAttribute("user", new User());
         return "register";
@@ -76,6 +75,7 @@ public class UserController {
         userService.updateUser(user);
         return "redirect:/play";
     }
+
     @GetMapping("/updateProfile")
     public String returnProfile() {
         return "redirect:/profile";
@@ -84,6 +84,6 @@ public class UserController {
     @GetMapping("/logout")
     public String logoutUser(SessionStatus sessionStatus) {
         sessionStatus.setComplete(); // Effacer tous les attributs de session
-        return "redirect:/login"; // Rediriger vers la page de connexion après la déconnexion
+        return "redirect:/login";
     }
 }

@@ -17,6 +17,7 @@
 </nav>
 
 <h2>Profile</h2>
+
 <form action="/updateProfile" method="post">
   <label for="username">Username:</label>
   <input type="text" id="username" name="username" th:value="${user.username}" /><br>
@@ -24,5 +25,6 @@
   <input type="password" id="password" name="password" /><br>
   <input type="submit" value="Update Profile" />
 </form>
+
 </body>
 </html>
